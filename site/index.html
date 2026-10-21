@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Halol aksiya skrineri — Trading Laboratory</title>
+<meta name="description" content="AQSh birjalaridagi aksiyalarning shariatga muvofiqligini AAOIFI mezonlari asosida tekshiring. Har soatda yangilanadi.">
+<meta property="og:title" content="Halol aksiya skrineri — Trading Laboratory">
+<meta property="og:description" content="Aksiya halolmi? Qarz, naqd pul va foizli daromad nisbatlari bo'yicha bepul tekshiruv. Har soatda yangilanadi.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="config.js"></script>
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="#">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32"><path d="M20 5a11 11 0 1 0 7 19.5A9 9 0 1 1 20 5z" fill="currentColor"/></svg>
+      </span>
+      <span><b id="brandName">Trading Laboratory</b><small>Halol aksiya skrineri</small></span>
+    </a>
+    <a class="btn btn-tg" id="topCta" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 4.3 2.9 11.5c-1.3.5-1.2 1.3-.2 1.6l4.8 1.5 1.8 5.6c.2.7.5.8 1 .3l2.7-2.5 4.9 3.6c.9.5 1.5.2 1.7-.8l3.2-15c.3-1.3-.5-1.9-1.3-1.5zM9 14.2l9.4-5.9c.4-.3.8-.1.5.2l-7.8 7-.3 3.3L9 14.2z" fill="currentColor"/></svg>
+      Kanalga qo'shilish
+    </a>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <h1>Aksiya <em>halolmi?</em></h1>
+    <p class="lead">AQSh birjalaridagi minglab aksiyani AAOIFI standartiga asoslangan, Islamicly e'lon qilgan mezonlar bo'yicha tekshiring. Narxlar va statuslar har soatda yangilanadi.</p>
+    <div class="search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <input id="q" type="search" placeholder="Tiker yoki kompaniya nomi, masalan AAPL" autocomplete="off" autocapitalize="characters" spellcheck="false">
+    </div>
+    <p class="updated" id="updated">Ma'lumot yuklanmoqda…</p>
+  </section>
+
+  <section class="stats" id="stats" aria-label="Umumiy natijalar"></section>
+
+  <section class="filters" aria-label="Filtrlar">
+    <div class="seg" id="fStatus" role="group" aria-label="Status">
+      <button data-v="" class="on">Hammasi</button>
+      <button data-v="halal">Halol</button>
+      <button data-v="not_halal">Halol emas</button>
+      <button data-v="doubtful">Shubhali</button>
+    </div>
+    <div class="selects">
+      <label><span>Toifa</span>
+        <select id="fCat">
+          <option value="">Hammasi</option>
+          <option value="value">Value</option>
+          <option value="growth">Growth</option>
+          <option value="penny">Penny ($5 dan arzon)</option>
+          <option value="blend">Aralash</option>
+        </select>
+      </label>
+      <label><span>Birja</span>
+        <select id="fEx">
+          <option value="">Hammasi</option>
+          <option value="Nasdaq">Nasdaq</option>
+          <option value="NYSE">NYSE</option>
+          <option value="CBOE">Cboe</option>
+          <option value="OTC">OTC</option>
+        </select>
+      </label>
+      <label><span>Saralash</span>
+        <select id="fSort">
+          <option value="mc">Kapitalizatsiya</option>
+          <option value="chg">Kunlik o'sish</option>
+          <option value="rt">Halollik reytingi</option>
+          <option value="t">Alifbo</option>
+        </select>
+      </label>
+    </div>
+  </section>
+
+  <section aria-label="Aksiyalar ro'yxati">
+    <div class="list-head"><span id="resultCount"></span></div>
+    <ol class="list" id="list"></ol>
+    <button class="btn btn-ghost more" id="more" hidden>Yana ko'rsatish</button>
+  </section>
+
+  <section class="cta-band">
+    <div>
+      <h2>Qaysi aksiyalarni hozir olish mumkin?</h2>
+      <p id="ctaText"></p>
+    </div>
+    <a class="btn btn-tg big" id="bandCta" href="#" target="_blank" rel="noopener">Kanalga qo'shilish</a>
+  </section>
+
+  <section class="changes">
+    <h2>So'nggi status o'zgarishlari</h2>
+    <p class="muted">Narx yoki yangi hisobot tufayli halollik statusi o'zgargan aksiyalar.</p>
+    <ol id="changes" class="change-list"></ol>
+  </section>
+
+  <section class="method" id="metodologiya">
+    <h2>Qanday tekshiramiz?</h2>
+    <div class="steps">
+      <article>
+        <span class="num">1</span>
+        <h3>Biznes skrining</h3>
+        <p>Asosiy faoliyati alkogol, tamaki, cho'chqa go'shti, qimor, foizli bank va sug'urta, qurol-yarog' yoki kattalar kontenti bo'lgan kompaniyalar darhol chiqariladi. Soha SEC'dagi SIC kodi va qo'lda tuzilgan ro'yxat bo'yicha aniqlanadi.</p>
+      </article>
+      <article>
+        <span class="num">2</span>
+        <h3>Foizli qarz &lt; 30%</h3>
+        <p>Kompaniyaning foizli qarzi (qisqa va uzoq muddatli) bozor kapitalizatsiyasining 30% idan kam bo'lishi kerak.</p>
+      </article>
+      <article>
+        <span class="num">3</span>
+        <h3>Naqd pul va foizli qog'ozlar &lt; 30%</h3>
+        <p>Naqd pul, depozitlar va foizli qimmatli qog'ozlar bozor kapitalizatsiyasining 30% idan kam bo'lishi kerak.</p>
+      </article>
+      <article>
+        <span class="num">4</span>
+        <h3>Foizli daromad &lt; 5%</h3>
+        <p>Foizdan kelgan daromad jami daromadning 5% idan kam bo'lishi kerak. Shu ulush dividenddan sadaqa qilinadi (tozalash).</p>
+      </article>
+    </div>
+    <div class="legend">
+      <p><span class="pill halal">Halol</span> barcha mezonlardan o'tgan. Oy belgilari (1–5) aksiya chegaralardan qanchalik uzoqligini ko'rsatadi: 5 — juda ishonchli, 1 — chegaraga juda yaqin.</p>
+      <p><span class="pill doubtful">Shubhali</span> soha yoki ba'zi ko'rsatkichlar qo'lda tekshirishni talab qiladi.</p>
+      <p><span class="pill not_halal">Halol emas</span> kamida bitta mezondan o'tmagan.</p>
+    </div>
+    <p class="muted small">Ma'lumot manbalari: hisobotlar — SEC EDGAR (har kuni yangilanadi), narxlar — Yahoo Finance (savdo vaqtida har soatda). Qarz, naqd pul va daromad kompaniya hisobotidan olinadi va har chorakda o'zgaradi; har soatda narx o'zgarishi bilan bozor kapitalizatsiyasi va nisbatlar qayta hisoblanadi.</p>
+  </section>
+
+  <section class="disclaimer">
+    <p><b>Muhim:</b> bu vosita Islamicly platformasi ochiq e'lon qilgan mezonlar asosida mustaqil ishlab chiqilgan va Islamicly bilan bog'liq emas. Ularning ichki algoritmining barcha tafsilotlari ochiq emas, shuning uchun natijalar ba'zan farq qilishi mumkin. Bu fatvo yoki investitsiya maslahati emas. Sarmoya kiritishdan oldin o'zingiz tekshiring va kerak bo'lsa ulamolarga murojaat qiling.</p>
+  </section>
+</main>
+
+<footer class="foot wrap">
+  <span>© <span id="year"></span> Trading Laboratory</span>
+  <a href="#metodologiya">Metodologiya</a>
+</footer>
+
+<dialog id="detail" aria-labelledby="dTitle">
+  <div class="d-in" id="dBody"></div>
+</dialog>
+
+<script src="app.js"></script>
+</body>
+</html>
